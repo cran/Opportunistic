@@ -73,9 +73,9 @@ MC = function(p,M)
 
 ####################################################################
 
-# multi = function(vec){
-#   return(factorial(sum(vec))/prod(sapply(X = vec,FUN = function(x){factorial(x)})))
-# }
+multi = function(vec){
+  return(factorial(sum(vec))/prod(sapply(X = vec,FUN = function(x){factorial(x)})))
+}
 
 ####################################################################
 
@@ -99,3 +99,58 @@ oportunist = function(p){
 }
 
 ####################################################################
+
+sols = function(N){
+  s = 1:N
+  vals = as.matrix(expand.grid(rep(list(0:N),N)))
+  ii = 1:dim(vals)[1]
+  ii = apply(X = vals,MARGIN = 1,FUN = function(x){ifelse(sum(x) < N,1,0)})
+  ab   = vals[N+1,]
+  vals = vals[ii==1,]
+  vals = rbind(vals[1:N,],ab,vals[-(1:N),])
+  jj = apply(X = vals,MARGIN = 1,FUN = function(x){ifelse(t(s)%*%x == N,1,0)})
+  return(vals[jj==1,])}
+
+####################################################################
+
+gentext = function(row,pt)
+{
+  return(gsub("\\^1", "",paste(pt[row!=0],"^",row[row!=0],sep = "",collapse = "*"), perl=TRUE))
+}
+
+####################################################################
+
+routes = function(p,delta = 0)
+{
+  if(length(p)<1) stop("p length must greater or equal than 1")
+  if(max(p) > 1 | min(p) < 0) stop("p vector must contain real numbers in [0,1]")
+  if(delta ==0){
+    N = length(p)
+    mat = sols(N)
+    freq = cbind(apply(X = mat,MARGIN = 1,FUN = multi))
+    NR = sum(freq)
+    pt = paste("p",seq_len(N),sep = "")
+    probs1 = apply(X = mat,MARGIN = 1,FUN = function(x){prod(p^x)})
+    probs2 = apply(X = mat,MARGIN = 1,FUN = gentext,pt=pt)
+    res = data.frame(rbind(cbind(freq,probs2,round(probs1,5)),c(NR,"","")),row.names = c(paste("route",seq_len(length(freq)),"  ",sep = " "),"Total"))
+    colnames(res) = c("Freq","Probability","Value")
+    return(res)
+  }else{
+    p0 = p1 = rep(0,length(p))
+    p0[p!=0] = p[p!=0]-delta
+    p1[p!=0] = p[p!=0]+delta
+    if(max(p1) > 1 | min(p0) < 0) stop("lower and upper bounds must contain real numbers in [0,1]")
+    N = length(p)
+    mat = sols(N)
+    freq = cbind(apply(X = mat,MARGIN = 1,FUN = multi))
+    NR = sum(freq)
+    pt = paste("p",seq_len(N),sep = "")
+    probs1 = apply(X = mat,MARGIN = 1,FUN = function(x){prod(p^x)})
+    probs10 = apply(X = mat,MARGIN = 1,FUN = function(x){prod(p0^x)})
+    probs11 = apply(X = mat,MARGIN = 1,FUN = function(x){prod(p1^x)})
+    probs2 = apply(X = mat,MARGIN = 1,FUN = gentext,pt=pt)
+    res = data.frame(rbind(cbind(freq,probs2,round(probs10,5),round(probs1,5),round(probs11,5)),c(NR,"","","","")),row.names = c(paste("route",seq_len(length(freq)),"  ",sep = " "),"Total"))
+    colnames(res) = c("Freq","Probability","p - delta","    p    ","p + delta")
+    return(res)
+  }
+}

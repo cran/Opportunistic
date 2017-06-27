@@ -1,7 +1,8 @@
-3976e1f44378198093c4aea9d96c1d8d *DESCRIPTION
-e067c7572206104dae0ccf363651c7fe *NAMESPACE
+2bd5f63ba4f68a79d5d13f6cf1beeb58 *DESCRIPTION
+7bc585d7d53732dab189f0c4708b2857 *NAMESPACE
 f541a8fa2e853d79e9232fb72a6804fe *R/Expected.R
 e0256322dfd6c07a6471aa4f52dfa922 *R/MonteCarlo.R
-e283626494a3d02b8abbfa732121292d *R/aux_codes.R
-ad5dcd6508737c6c047b5f0e5a136ab7 *man/Expected.Rd
-93ea1edfb345ec913a7c9630b83ed9be *man/MonteCarlo.Rd
+8e8b46d8d9ed6da6b936c800944ffa9d *R/aux_codes.R
+f372d96370b654402387b1a3ca0fc13d *man/Expected.Rd
+178b93e14f25cb4c161b304f1bb4c37c *man/MonteCarlo.Rd
+9fb48524b247accfbcaaeebb2596daec *man/routes.Rd

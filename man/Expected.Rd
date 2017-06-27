@@ -26,7 +26,7 @@ Biswas, S., & Morris, R. (2004). Opportunistic routing in multi-hop wireless net
 Christian E. Galarza and Jonathan M. Olate
 }
 \seealso{
-\code{\link{MonteCarlo}}
+\code{\link{routes}}, \code{\link{MonteCarlo}}
 }
 \examples{
 #An N=3 Opportunistic system with probabilities p = c(0.0,0.4,0.1)

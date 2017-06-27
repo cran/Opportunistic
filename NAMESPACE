@@ -1,3 +1,4 @@
+export(routes)
 export(Expected)
 export(MonteCarlo)
 importFrom("utils", "setTxtProgressBar", "txtProgressBar")

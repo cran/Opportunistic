@@ -32,7 +32,7 @@ Biswas, S., & Morris, R. (2004). Opportunistic routing in multi-hop wireless net
 Christian E. Galarza and Jonathan M. Olate
 }
 \seealso{
-\code{\link{Expected}}
+\code{\link{routes}}, \code{\link{Expected}}
 }
 \examples{
 #Monte Carlo simulation for an N=3 Opportunistic system with probabilities
